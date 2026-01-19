@@ -5,6 +5,114 @@
     'use strict';
 
     // ============================================
+    // Hamburger Menu Toggle
+    // ============================================
+    function initHamburgerMenu() {
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        const navLinks = document.querySelectorAll('.nav-link');
+        let overlay = document.querySelector('.nav-overlay');
+
+        // Create overlay if it doesn't exist
+        if (!overlay) {
+            overlay = document.createElement('div');
+            overlay.className = 'nav-overlay';
+            document.body.appendChild(overlay);
+        }
+
+        function toggleMenu() {
+            const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+            hamburger.setAttribute('aria-expanded', !isExpanded);
+            navMenu.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = isExpanded ? '' : 'hidden';
+        }
+
+        function closeMenu() {
+            hamburger.setAttribute('aria-expanded', 'false');
+            navMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        if (hamburger && navMenu) {
+            hamburger.addEventListener('click', toggleMenu);
+            overlay.addEventListener('click', closeMenu);
+
+            // Close menu when clicking nav links (mobile)
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    // Only close on mobile (when menu is a sidebar)
+                    if (window.innerWidth < 768) {
+                        closeMenu();
+                    }
+                });
+            });
+
+            // Close menu on window resize if switching to desktop view
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 768) {
+                    closeMenu();
+                }
+            });
+        }
+    }
+
+    // ============================================
+    // Hamburger Menu Toggle
+    // ============================================
+    function initHamburgerMenu() {
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        const navLinks = document.querySelectorAll('.nav-link');
+        let overlay = document.querySelector('.nav-overlay');
+
+        // Create overlay if it doesn't exist
+        if (!overlay) {
+            overlay = document.createElement('div');
+            overlay.className = 'nav-overlay';
+            document.body.appendChild(overlay);
+        }
+
+        function toggleMenu() {
+            const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+            hamburger.setAttribute('aria-expanded', !isExpanded);
+            navMenu.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = isExpanded ? '' : 'hidden';
+        }
+
+        function closeMenu() {
+            hamburger.setAttribute('aria-expanded', 'false');
+            navMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        if (hamburger && navMenu) {
+            hamburger.addEventListener('click', toggleMenu);
+            overlay.addEventListener('click', closeMenu);
+
+            // Close menu when clicking nav links (mobile)
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    // Only close on mobile (when menu is a sidebar)
+                    if (window.innerWidth < 768) {
+                        closeMenu();
+                    }
+                });
+            });
+
+            // Close menu on window resize if switching to desktop view
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 768) {
+                    closeMenu();
+                }
+            });
+        }
+    }
+
+    // ============================================
     // Smooth Scrolling for Navigation Links
     // ============================================
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -68,10 +176,14 @@
         });
     }
 
-    // Initialize FAQ when DOM is ready
+    // Initialize hamburger menu and FAQ when DOM is ready
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initFAQ);
+        document.addEventListener('DOMContentLoaded', function() {
+            initHamburgerMenu();
+            initFAQ();
+        });
     } else {
+        initHamburgerMenu();
         initFAQ();
     }
 
