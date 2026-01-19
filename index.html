@@ -5,74 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Helen + Arthur Wedding</title>
     
-    <!-- Configuration Injection Script -->
-    <!-- This script reads config.json and injects CSS custom properties -->
+    <!-- Configuration - Inline (no server needed!) -->
+    <!-- Edit the config object below to change colors, fonts, and spacing -->
     <script>
         (function() {
-            // Load config.json and inject CSS variables
-            fetch('config.json')
-                .then(response => response.json())
-                .then(config => {
-                    const style = document.createElement('style');
-                    let cssVars = ':root {\n';
-                    
-                    // Inject color variables
-                    if (config.colors) {
-                        Object.keys(config.colors).forEach(key => {
-                            cssVars += `  --color-${key}: ${config.colors[key]};\n`;
-                        });
-                    }
-                    
-                    // Inject typography variables
-                    if (config.typography) {
-                        // Handle primary font (typically serif for headings)
-                        if (config.typography.primaryFont) {
-                            cssVars += `  --font-primary: "${config.typography.primaryFont}", serif;\n`;
-                        }
-                        // Handle secondary font (typically sans-serif for body)
-                        if (config.typography.secondaryFont) {
-                            cssVars += `  --font-secondary: "${config.typography.secondaryFont}", sans-serif;\n`;
-                        }
-                        // Handle other typography properties (sizes, etc.)
-                        Object.keys(config.typography).forEach(key => {
-                            if (key !== 'primaryFont' && key !== 'secondaryFont') {
-                                const value = config.typography[key];
-                                cssVars += `  --font-${key.toLowerCase()}: ${value};\n`;
-                            }
-                        });
-                    }
-                    
-                    // Inject spacing variables
-                    if (config.spacing) {
-                        Object.keys(config.spacing).forEach(key => {
-                            cssVars += `  --spacing-${key.toLowerCase()}: ${config.spacing[key]};\n`;
-                        });
-                    }
-                    
-                    cssVars += '}\n';
-                    style.textContent = cssVars;
-                    document.head.appendChild(style);
-                })
-                .catch(error => {
-                    console.error('Error loading config.json:', error);
-                    // Fallback CSS variables if config fails to load
-                    const style = document.createElement('style');
-                    style.textContent = `
-                        :root {
-                            --color-background: #FAF8F3;
-                            --color-text: #2C2C2C;
-                            --color-accent: #5A7A5A;
-                            --color-secondary: #FFFFFF;
-                            --font-primary: "Cormorant Garamond", serif;
-                            --font-secondary: "Work Sans", sans-serif;
-                            --font-headingsize: 2.5rem;
-                            --font-bodysize: 1rem;
-                            --spacing-sectionpadding: 4rem;
-                            --spacing-contentmaxwidth: 1200px;
-                        }
-                    `;
-                    document.head.appendChild(style);
+            // Configuration object - edit this directly!
+            const config = {
+                colors: {
+                    background: "#FAF8F3",
+                    text: "#2C2C2C",
+                    accent: "#5A7A5A",
+                    secondary: "#FFFFFF"
+                },
+                typography: {
+                    primaryFont: "Cormorant Garamond",
+                    secondaryFont: "Work Sans",
+                    headingSize: "2.5rem",
+                    bodySize: "1rem"
+                },
+                spacing: {
+                    sectionPadding: "4rem",
+                    contentMaxWidth: "1200px"
+                }
+            };
+            
+            // Inject CSS variables from config
+            const style = document.createElement('style');
+            let cssVars = ':root {\n';
+            
+            // Inject color variables
+            if (config.colors) {
+                Object.keys(config.colors).forEach(key => {
+                    cssVars += `  --color-${key}: ${config.colors[key]};\n`;
                 });
+            }
+            
+            // Inject typography variables
+            if (config.typography) {
+                if (config.typography.primaryFont) {
+                    cssVars += `  --font-primary: "${config.typography.primaryFont}", serif;\n`;
+                }
+                if (config.typography.secondaryFont) {
+                    cssVars += `  --font-secondary: "${config.typography.secondaryFont}", sans-serif;\n`;
+                }
+                Object.keys(config.typography).forEach(key => {
+                    if (key !== 'primaryFont' && key !== 'secondaryFont') {
+                        const value = config.typography[key];
+                        cssVars += `  --font-${key.toLowerCase()}: ${value};\n`;
+                    }
+                });
+            }
+            
+            // Inject spacing variables
+            if (config.spacing) {
+                Object.keys(config.spacing).forEach(key => {
+                    cssVars += `  --spacing-${key.toLowerCase()}: ${config.spacing[key]};\n`;
+                });
+            }
+            
+            cssVars += '}\n';
+            style.textContent = cssVars;
+            document.head.appendChild(style);
         })();
     </script>
     
