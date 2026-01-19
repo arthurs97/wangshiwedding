@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Helen + Arthur Wedding</title>
+    
+    <!-- Configuration Injection Script -->
+    <!-- This script reads config.json and injects CSS custom properties -->
+    <script>
+        (function() {
+            // Load config.json and inject CSS variables
+            fetch('config.json')
+                .then(response => response.json())
+                .then(config => {
+                    const style = document.createElement('style');
+                    let cssVars = ':root {\n';
+                    
+                    // Inject color variables
+                    if (config.colors) {
+                        Object.keys(config.colors).forEach(key => {
+                            cssVars += `  --color-${key}: ${config.colors[key]};\n`;
+                        });
+                    }
+                    
+                    // Inject typography variables
+                    if (config.typography) {
+                        // Handle primary font (typically serif for headings)
+                        if (config.typography.primaryFont) {
+                            cssVars += `  --font-primary: "${config.typography.primaryFont}", serif;\n`;
+                        }
+                        // Handle secondary font (typically sans-serif for body)
+                        if (config.typography.secondaryFont) {
+                            cssVars += `  --font-secondary: "${config.typography.secondaryFont}", sans-serif;\n`;
+                        }
+                        // Handle other typography properties (sizes, etc.)
+                        Object.keys(config.typography).forEach(key => {
+                            if (key !== 'primaryFont' && key !== 'secondaryFont') {
+                                const value = config.typography[key];
+                                cssVars += `  --font-${key.toLowerCase()}: ${value};\n`;
+                            }
+                        });
+                    }
+                    
+                    // Inject spacing variables
+                    if (config.spacing) {
+                        Object.keys(config.spacing).forEach(key => {
+                            cssVars += `  --spacing-${key.toLowerCase()}: ${config.spacing[key]};\n`;
+                        });
+                    }
+                    
+                    cssVars += '}\n';
+                    style.textContent = cssVars;
+                    document.head.appendChild(style);
+                })
+                .catch(error => {
+                    console.error('Error loading config.json:', error);
+                    // Fallback CSS variables if config fails to load
+                    const style = document.createElement('style');
+                    style.textContent = `
+                        :root {
+                            --color-background: #FAF8F3;
+                            --color-text: #2C2C2C;
+                            --color-accent: #8B7355;
+                            --color-secondary: #FFFFFF;
+                            --font-primary: "Cormorant Garamond", serif;
+                            --font-secondary: "Work Sans", sans-serif;
+                            --font-headingsize: 2.5rem;
+                            --font-bodysize: 1rem;
+                            --spacing-sectionpadding: 4rem;
+                            --spacing-contentmaxwidth: 1200px;
+                        }
+                    `;
+                    document.head.appendChild(style);
+                });
+        })();
+    </script>
+    
+    <!-- Google Fonts (Development) -->
+    <!-- TODO: Before production, download fonts and reference locally from assets/fonts/ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles/variables.css">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <!-- Fixed Navigation Bar -->
+    <nav class="main-nav" id="mainNav">
+        <div class="nav-container">
+            <a href="#welcome" class="nav-link">Welcome</a>
+            <a href="#information" class="nav-link">Information</a>
+            <a href="#our-story" class="nav-link">Our Story</a>
+        </div>
+    </nav>
+
+    <!-- Main Content - Single Page Scrollable -->
+    <main class="main-content">
+        <!-- Section 1: Welcome -->
+        <section id="welcome" class="content-section welcome-section">
+            <h1 class="welcome-title">We're Getting Married!</h1>
+            
+            <!-- Main Site Image -->
+            <div class="welcome-image-container">
+                <img src="assets/images/main-photo.jpg" alt="Helen and Arthur" class="welcome-main-image" id="welcomeImage">
+                <!-- Placeholder if image not added yet -->
+                <div class="image-placeholder" id="imagePlaceholder">
+                    <p>Add your main photo as <code>assets/images/main-photo.jpg</code></p>
+                </div>
+            </div>
+            
+            <!-- Wedding Details -->
+            <div class="wedding-details">
+                <p class="wedding-names">Helen + Arthur Wedding</p>
+                <p class="wedding-date">November 7, 2026</p>
+                <p class="wedding-location">Mill Valley, CA</p>
+            </div>
+        </section>
+
+        <!-- Section Divider -->
+        <div class="section-divider"></div>
+
+        <!-- Section 2: Information -->
+        <section id="information" class="content-section information-section">
+            <h2>Information</h2>
+            
+            <!-- Hotel Block Subsection -->
+            <div class="info-subsection hotel-block">
+                <h3>Hotel Block</h3>
+                <div class="info-content">
+                    <p>Hotel information will be added here...</p>
+                </div>
+            </div>
+
+            <!-- FAQ Subsection -->
+            <div class="info-subsection faq-section">
+                <h3>Frequently Asked Questions</h3>
+                <div class="faq-container">
+                    <!-- FAQ items - copy this structure to add more questions -->
+                    <!-- Example FAQ item (you can remove this and add your own): -->
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>What time should I arrive?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Please arrive by 4:00 PM for the ceremony.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Add more FAQ items by copying the structure above -->
+                    <!-- 
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Your question here?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Your answer here.</p>
+                        </div>
+                    </div>
+                    -->
+                </div>
+            </div>
+
+            <!-- Things to Do / Local Recommendations Subsection -->
+            <div class="info-subsection recommendations-section">
+                <h3>Things to Do & Local Recommendations</h3>
+                <div class="info-content">
+                    <p>Local recommendations will be added here...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Divider -->
+        <div class="section-divider"></div>
+
+        <!-- Section 3: Our Story -->
+        <section id="our-story" class="content-section story-section">
+            <h2>Our Story</h2>
+            
+            <!-- Story Text -->
+            <div class="story-text">
+                <p>Your story will be added here...</p>
+            </div>
+
+            <!-- Photo Gallery -->
+            <div class="gallery-container">
+                <h3>Photo Gallery</h3>
+                
+                <!-- Gallery Preview (scrollable on mobile, click to open full gallery) -->
+                <div class="gallery-preview" id="galleryPreview">
+                    <div class="gallery-scroll" id="galleryScroll">
+                        <!-- Gallery images - add your photos here -->
+                        <!-- Place images in assets/images/gallery/ directory -->
+                        <!-- Example structure (copy and modify for each photo):
+                        <div class="gallery-item" data-index="0">
+                            <img src="assets/images/gallery/photo1.jpg" alt="Description of photo" loading="lazy">
+                        </div>
+                        <div class="gallery-item" data-index="1">
+                            <img src="assets/images/gallery/photo2.jpg" alt="Description of photo" loading="lazy">
+                        </div>
+                        -->
+                        <div class="gallery-placeholder">
+                            <p>Add photos to <code>assets/images/gallery/</code> directory and reference them above</p>
+                        </div>
+                    </div>
+                    <button class="gallery-open-btn" id="galleryOpenBtn" style="display: none;">View Full Gallery</button>
+                </div>
+
+                <!-- Full Gallery Modal (hidden by default) -->
+                <div class="gallery-modal" id="galleryModal">
+                    <div class="gallery-modal-content">
+                        <button class="gallery-close" id="galleryClose">&times;</button>
+                        <button class="gallery-nav gallery-prev" id="galleryPrev">&#8249;</button>
+                        <button class="gallery-nav gallery-next" id="galleryNext">&#8250;</button>
+                        <div class="gallery-modal-image-container">
+                            <img id="galleryModalImage" src="" alt="Gallery image">
+                        </div>
+                        <div class="gallery-counter">
+                            <span id="galleryCurrent">1</span> / <span id="galleryTotal">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p>&copy; 2026 Helen + Arthur Wedding</p>
+    </footer>
+
+    <!-- JavaScript for Interactive Features -->
+    <script src="scripts/main.js"></script>
+</body>
+</html>
+

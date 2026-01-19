@@ -1,0 +1,19 @@
+{
+  "colors": {
+    "background": "#FAF8F3",
+    "text": "#2C2C2C",
+    "accent": "#8B7355",
+    "secondary": "#FFFFFF"
+  },
+  "typography": {
+    "primaryFont": "Cormorant Garamond",
+    "secondaryFont": "Work Sans",
+    "headingSize": "2.5rem",
+    "bodySize": "1rem"
+  },
+  "spacing": {
+    "sectionPadding": "4rem",
+    "contentMaxWidth": "1200px"
+  }
+}
+
