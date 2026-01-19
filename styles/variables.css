@@ -3,10 +3,10 @@
 /* This file serves as a fallback/reference if config.json fails to load */
 
 :root {
-    /* Colors - Default fallback values */
+    /* Colors - Green titles, black body text */
     --color-background: #FAF8F3;
     --color-text: #2C2C2C;
-    --color-accent: #8B7355;
+    --color-accent: #5A7A5A;
     --color-secondary: #FFFFFF;
     
     /* Typography - Default fallback values */

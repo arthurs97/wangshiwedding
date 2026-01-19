@@ -37,7 +37,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
     line-height: 1.2;
     margin-bottom: 1rem;
-    color: var(--color-text);
+    color: var(--color-accent); /* Green for all headings */
     letter-spacing: 0.5px; /* Subtle letter spacing for elegance */
 }
 
@@ -261,33 +261,19 @@ p {
     pointer-events: none;
 }
 
-/* Section Dividers - Enhanced with Depth */
+/* Section Dividers - Clean Green Lines */
 .section-divider {
     height: 1px;
     background: linear-gradient(to right, 
         transparent 0%, 
-        rgba(139, 115, 85, 0.2) 20%, 
-        rgba(139, 115, 85, 0.4) 50%, 
-        rgba(139, 115, 85, 0.2) 80%, 
+        rgba(90, 122, 90, 0.3) 20%, 
+        rgba(90, 122, 90, 0.5) 50%, 
+        rgba(90, 122, 90, 0.3) 80%, 
         transparent 100%);
     max-width: var(--spacing-contentmaxwidth);
     margin: 4rem auto;
     width: 60%;
     position: relative;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.section-divider::before {
-    content: '';
-    position: absolute;
-    top: -1px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 6px;
-    height: 6px;
-    background-color: var(--color-accent);
-    border-radius: 50%;
-    box-shadow: 0 0 8px rgba(139, 115, 85, 0.4);
 }
 
 /* ============================================
