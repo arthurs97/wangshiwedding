@@ -7,7 +7,7 @@
     // Password hash (SHA-256 hash of your password)
     // To set a new password, hash it using: https://emn178.github.io/online-tools/sha256.html
     // Replace the hash below with your desired password's SHA-256 hash
-    const PASSWORD_HASH = '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'; // Default: "password"
+    const PASSWORD_HASH = '87fdc0ae36267542246a6f21797b2028886dd7b9d537c9816cd38efdc2ec8475';
     
     // Check if already authenticated in this session
     const isAuthenticated = () => {
