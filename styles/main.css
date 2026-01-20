@@ -563,8 +563,12 @@ p {
     font-size: 1.5rem;
     font-weight: 300;
     color: var(--color-accent);
+    transition: transform 0.3s ease;
     flex-shrink: 0;
-    display: inline-block;
+}
+
+.faq-question[aria-expanded="true"] .faq-icon {
+    transform: rotate(45deg);
 }
 
 .faq-answer {
