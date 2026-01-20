@@ -169,6 +169,7 @@ p {
 }
 
 .nav-container {
+    width: 100%;
     max-width: var(--spacing-contentmaxwidth);
     margin: 0 auto;
     padding: 0.5rem var(--spacing-mobile-padding);
