@@ -538,6 +538,90 @@ p {
     max-width: 100%;
 }
 
+/* Recommendations List Styling */
+.recommendations-list {
+    margin-top: 2.5rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.recommendation-category {
+    margin-bottom: 2.5rem;
+}
+
+.recommendation-category:last-child {
+    margin-bottom: 0;
+}
+
+.category-title {
+    font-family: var(--font-primary);
+    color: var(--color-accent);
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(90, 122, 90, 0.2);
+}
+
+.category-subtitle {
+    font-family: var(--font-secondary);
+    color: var(--color-text);
+    font-size: 1rem;
+    font-style: italic;
+    margin-bottom: 0.75rem;
+    opacity: 0.8;
+}
+
+.recommendation-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.recommendation-items li {
+    font-family: var(--font-secondary);
+    color: var(--color-text);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.recommendation-items li:last-child {
+    margin-bottom: 0;
+}
+
+.recommendation-items li::before {
+    content: "•";
+    color: var(--color-accent);
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    font-size: 1.2rem;
+}
+
+.recommendation-items li strong {
+    color: var(--color-accent);
+    font-weight: 600;
+}
+
+/* Responsive adjustments for recommendations */
+@media (max-width: 768px) {
+    .recommendations-list {
+        margin-top: 2rem;
+    }
+    
+    .category-title {
+        font-size: 1.5rem;
+    }
+    
+    .recommendation-items li {
+        font-size: 0.95rem;
+        padding-left: 1.25rem;
+    }
+}
+
 /* ============================================
    FAQ ACCORDION STYLES
    ============================================ */
