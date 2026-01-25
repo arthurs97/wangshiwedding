@@ -193,34 +193,164 @@
     let galleryImages = [];
     let currentGalleryIndex = 0;
 
-    function initGallery() {
-        // Collect all gallery images
-        const galleryItems = document.querySelectorAll('.gallery-item img');
-        galleryImages = Array.from(galleryItems).map(img => ({
-            src: img.src,
-            alt: img.alt || 'Gallery image'
-        }));
-
-        // Hide placeholder and show open button if images exist
-        const placeholder = document.querySelector('.gallery-placeholder');
-        const openBtn = document.getElementById('galleryOpenBtn');
-        
-        if (galleryImages.length > 0) {
-            if (placeholder) placeholder.style.display = 'none';
-            if (openBtn) openBtn.style.display = 'block';
-        } else {
-            if (placeholder) placeholder.style.display = 'block';
-            if (openBtn) openBtn.style.display = 'none';
+    function loadGalleryFromJSON() {
+        // Try to load from embedded script tag first (works with file:// protocol)
+        const embeddedScript = document.getElementById('gallery-metadata');
+        if (embeddedScript) {
+            try {
+                const photos = JSON.parse(embeddedScript.textContent);
+                return Promise.resolve(photos);
+            } catch (error) {
+                console.warn('Could not parse embedded gallery metadata:', error);
+            }
         }
+        
+        // Fallback: try to fetch from JSON file (works with http/https)
+        return fetch('assets/images/gallery/metadata.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Metadata file not found');
+                }
+                return response.json();
+            })
+            .catch(error => {
+                console.warn('Could not load gallery metadata:', error);
+                // Fallback: try to load images from directory structure
+                return null;
+            });
+    }
 
+    function renderGalleryItems(photos) {
+        const galleryScroll = document.getElementById('galleryScroll');
+        const placeholder = document.getElementById('galleryPlaceholder');
+        
+        if (!galleryScroll) return;
+        
+        // Clear existing content
+        galleryScroll.innerHTML = '';
+        
+        if (!photos || photos.length === 0) {
+            if (placeholder) {
+                placeholder.innerHTML = '<p>No photos found. Add photos to <code>assets/images/gallery/</code> directory and run the metadata extraction script.</p>';
+                placeholder.style.display = 'block';
+            }
+            return;
+        }
+        
+        // Hide placeholder once photos are loaded
+        if (placeholder) {
+            placeholder.style.display = 'none';
+        }
+        
+        // Sort photos by sequence (ascending, with 0 as first)
+        const sortedPhotos = [...photos].sort((a, b) => {
+            const seqA = a.sequence !== undefined ? a.sequence : 999;
+            const seqB = b.sequence !== undefined ? b.sequence : 999;
+            return seqA - seqB;
+        });
+        
+        // Create gallery items from JSON data
+        sortedPhotos.forEach((photo, index) => {
+            const galleryItem = document.createElement('div');
+            galleryItem.className = 'gallery-item';
+            galleryItem.setAttribute('data-index', index);
+            
+            const img = document.createElement('img');
+            img.src = photo.path;
+            img.alt = photo.filename;
+            img.loading = 'lazy';
+            
+            // Create caption container
+            const caption = document.createElement('div');
+            caption.className = 'gallery-item-caption';
+            
+            // Add date if available
+            if (photo.date) {
+                const dateEl = document.createElement('div');
+                dateEl.className = 'gallery-caption-date';
+                dateEl.textContent = photo.date;
+                caption.appendChild(dateEl);
+            }
+            
+            // Add location if available
+            if (photo.location) {
+                const locationEl = document.createElement('div');
+                locationEl.className = 'gallery-caption-location';
+                locationEl.textContent = photo.location;
+                caption.appendChild(locationEl);
+            }
+            
+            galleryItem.appendChild(img);
+            if (caption.children.length > 0) {
+                galleryItem.appendChild(caption);
+            }
+            galleryScroll.appendChild(galleryItem);
+        });
+        
+        // Update gallery images array (use sorted order)
+        galleryImages = sortedPhotos.map(photo => ({
+            src: photo.path,
+            alt: photo.filename,
+            date: photo.date,
+            location: photo.location
+        }));
+    }
+
+    function initGallery() {
+        // Keep placeholder showing "Loading gallery..." initially
+        const placeholder = document.getElementById('galleryPlaceholder');
+        if (placeholder) {
+            placeholder.innerHTML = '<p>Loading gallery...</p>';
+            placeholder.style.display = 'block';
+        }
+        
+        // Load gallery from JSON metadata
+        loadGalleryFromJSON().then(photos => {
+            if (photos) {
+                renderGalleryItems(photos);
+            } else {
+                // Fallback: try to collect from existing DOM elements
+                const galleryItems = document.querySelectorAll('.gallery-item img');
+                galleryImages = Array.from(galleryItems).map(img => ({
+                    src: img.src,
+                    alt: img.alt || 'Gallery image',
+                    date: null,
+                    location: null
+                }));
+            }
+
+            // Hide placeholder and show open button if images exist
+            const openBtn = document.getElementById('galleryOpenBtn');
+            
+            if (galleryImages.length > 0) {
+                if (placeholder) placeholder.style.display = 'none';
+                if (openBtn) openBtn.style.display = 'block';
+            } else {
+                // Only show instructions if we've confirmed there are no photos
+                if (placeholder) {
+                    placeholder.innerHTML = '<p>No photos found. Add photos to <code>assets/images/gallery/</code> directory and run the metadata extraction script.</p>';
+                    placeholder.style.display = 'block';
+                }
+                if (openBtn) openBtn.style.display = 'none';
+            }
+            
+            // Initialize modal functionality
+            initGalleryModal();
+        });
+    }
+
+    function initGalleryModal() {
         // Open gallery modal
         const modal = document.getElementById('galleryModal');
         const modalImage = document.getElementById('galleryModalImage');
         const galleryCurrent = document.getElementById('galleryCurrent');
         const galleryTotal = document.getElementById('galleryTotal');
+        const galleryDate = document.getElementById('galleryDate');
+        const galleryLocation = document.getElementById('galleryLocation');
         const closeBtn = document.getElementById('galleryClose');
         const prevBtn = document.getElementById('galleryPrev');
         const nextBtn = document.getElementById('galleryNext');
+        const openBtn = document.getElementById('galleryOpenBtn');
 
         if (!modal || !modalImage) return;
 
@@ -245,11 +375,51 @@
         function updateModalImage() {
             if (galleryImages.length === 0) return;
             const image = galleryImages[currentGalleryIndex];
+            
+            if (!image) return;
+            
             modalImage.src = image.src;
             modalImage.alt = image.alt;
+            
             if (galleryCurrent) {
                 galleryCurrent.textContent = currentGalleryIndex + 1;
             }
+            
+            // Update metadata
+            const metadataContainer = document.getElementById('galleryMetadata');
+            if (!metadataContainer) {
+                console.warn('Metadata container not found');
+                return;
+            }
+            
+            let hasMetadata = false;
+            
+            // Update date
+            if (galleryDate) {
+                if (image.date) {
+                    galleryDate.textContent = image.date;
+                    galleryDate.style.display = 'block';
+                    hasMetadata = true;
+                } else {
+                    galleryDate.textContent = '';
+                    galleryDate.style.display = 'none';
+                }
+            }
+            
+            // Update location
+            if (galleryLocation) {
+                if (image.location && typeof image.location === 'string' && image.location !== 'null' && image.location.trim() !== '') {
+                    galleryLocation.textContent = image.location;
+                    galleryLocation.style.display = 'block';
+                    hasMetadata = true;
+                } else {
+                    galleryLocation.textContent = '';
+                    galleryLocation.style.display = 'none';
+                }
+            }
+            
+            // Show/hide the entire metadata container
+            metadataContainer.style.display = hasMetadata ? 'block' : 'none';
         }
 
         function nextImage() {
@@ -269,10 +439,19 @@
             openBtn.addEventListener('click', () => openModal(0));
         }
 
-        // Click on gallery items to open modal
-        document.querySelectorAll('.gallery-item').forEach((item, index) => {
-            item.addEventListener('click', () => openModal(index));
-        });
+        // Click on gallery items to open modal (use event delegation for dynamically created items)
+        const galleryScrollContainer = document.getElementById('galleryScroll');
+        if (galleryScrollContainer) {
+            galleryScrollContainer.addEventListener('click', function(e) {
+                const galleryItem = e.target.closest('.gallery-item');
+                if (galleryItem) {
+                    const index = parseInt(galleryItem.getAttribute('data-index'), 10);
+                    if (!isNaN(index)) {
+                        openModal(index);
+                    }
+                }
+            });
+        }
 
         if (closeBtn) {
             closeBtn.addEventListener('click', closeModal);
