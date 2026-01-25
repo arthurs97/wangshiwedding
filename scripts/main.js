@@ -196,18 +196,30 @@
     function loadGalleryFromJSON() {
         // Load from embedded script tag (required for file:// protocol - browsers block fetch() for security)
         const embeddedScript = document.getElementById('gallery-metadata');
-        if (embeddedScript) {
-            try {
-                const photos = JSON.parse(embeddedScript.textContent);
-                return Promise.resolve(photos);
-            } catch (error) {
-                console.error('Could not parse embedded gallery metadata:', error);
-                return Promise.resolve(null);
-            }
+        if (!embeddedScript) {
+            console.warn('Gallery metadata script tag not found');
+            return Promise.resolve(null);
         }
         
-        console.warn('Gallery metadata script tag not found');
-        return Promise.resolve(null);
+        try {
+            const scriptContent = embeddedScript.textContent || embeddedScript.innerHTML;
+            if (!scriptContent || scriptContent.trim() === '') {
+                console.warn('Gallery metadata script tag is empty');
+                return Promise.resolve(null);
+            }
+            
+            const photos = JSON.parse(scriptContent.trim());
+            if (!Array.isArray(photos)) {
+                console.error('Gallery metadata is not an array');
+                return Promise.resolve(null);
+            }
+            
+            return Promise.resolve(photos);
+        } catch (error) {
+            console.error('Could not parse embedded gallery metadata:', error);
+            console.error('Error details:', error.message, error.stack);
+            return Promise.resolve(null);
+        }
     }
 
     function renderGalleryItems(photos) {
@@ -296,9 +308,10 @@
         
         // Load gallery from JSON metadata
         loadGalleryFromJSON().then(photos => {
-            if (photos) {
+            if (photos && photos.length > 0) {
                 renderGalleryItems(photos);
             } else {
+                console.warn('No photos loaded from metadata, trying fallback');
                 // Fallback: try to collect from existing DOM elements
                 const galleryItems = document.querySelectorAll('.gallery-item img');
                 galleryImages = Array.from(galleryItems).map(img => ({
@@ -318,7 +331,7 @@
             } else {
                 // Only show instructions if we've confirmed there are no photos
                 if (placeholder) {
-                    placeholder.innerHTML = '<p>No photos found. Add photos to <code>assets/images/gallery/</code> directory and run the metadata extraction script.</p>';
+                    placeholder.innerHTML = '<p>No photos found. Please check the gallery metadata.</p>';
                     placeholder.style.display = 'block';
                 }
                 if (openBtn) openBtn.style.display = 'none';
@@ -326,6 +339,12 @@
             
             // Initialize modal functionality
             initGalleryModal();
+        }).catch(error => {
+            console.error('Error loading gallery:', error);
+            if (placeholder) {
+                placeholder.innerHTML = '<p>Error loading gallery. Please refresh the page.</p>';
+                placeholder.style.display = 'block';
+            }
         });
     }
 
@@ -508,10 +527,27 @@
     }
 
     // Initialize gallery when DOM is ready
+    // Use a small delay on mobile to ensure script tag is fully parsed
+    function initGalleryWithDelay() {
+        // Small delay to ensure embedded script is fully loaded (especially on mobile)
+        setTimeout(function() {
+            try {
+                initGallery();
+            } catch (error) {
+                console.error('Error initializing gallery:', error);
+                const placeholder = document.getElementById('galleryPlaceholder');
+                if (placeholder) {
+                    placeholder.innerHTML = '<p>Error loading gallery. Please refresh the page.</p>';
+                    placeholder.style.display = 'block';
+                }
+            }
+        }, 100);
+    }
+    
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initGallery);
+        document.addEventListener('DOMContentLoaded', initGalleryWithDelay);
     } else {
-        initGallery();
+        initGalleryWithDelay();
     }
 
     // ============================================
