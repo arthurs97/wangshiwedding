@@ -194,30 +194,20 @@
     let currentGalleryIndex = 0;
 
     function loadGalleryFromJSON() {
-        // Try to load from embedded script tag first (works with file:// protocol)
+        // Load from embedded script tag (required for file:// protocol - browsers block fetch() for security)
         const embeddedScript = document.getElementById('gallery-metadata');
         if (embeddedScript) {
             try {
                 const photos = JSON.parse(embeddedScript.textContent);
                 return Promise.resolve(photos);
             } catch (error) {
-                console.warn('Could not parse embedded gallery metadata:', error);
+                console.error('Could not parse embedded gallery metadata:', error);
+                return Promise.resolve(null);
             }
         }
         
-        // Fallback: try to fetch from JSON file (works with http/https)
-        return fetch('assets/images/gallery/metadata.json')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Metadata file not found');
-                }
-                return response.json();
-            })
-            .catch(error => {
-                console.warn('Could not load gallery metadata:', error);
-                // Fallback: try to load images from directory structure
-                return null;
-            });
+        console.warn('Gallery metadata script tag not found');
+        return Promise.resolve(null);
     }
 
     function renderGalleryItems(photos) {
