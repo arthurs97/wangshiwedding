@@ -704,6 +704,7 @@ p {
     display: flex;
     flex-direction: column;
     background-color: var(--color-secondary);
+    box-sizing: border-box;
 }
 
 .gallery-item:hover,
@@ -719,6 +720,7 @@ p {
     height: 280px;
     object-fit: cover;
     display: block;
+    flex-shrink: 0;
 }
 
 .gallery-item-caption {
@@ -728,6 +730,9 @@ p {
     color: var(--color-text);
     background-color: var(--color-secondary);
     line-height: 1.4;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
 }
 
 .gallery-caption-date {
@@ -1057,10 +1062,13 @@ img {
     .gallery-item {
         width: 320px;
         min-height: 320px;
+        box-sizing: border-box;
     }
     
     .gallery-item img {
         height: 320px;
+        width: 100%;
+        object-fit: cover;
     }
 
     /* Story text */
@@ -1114,10 +1122,13 @@ img {
     .gallery-item {
         width: 350px;
         min-height: 350px;
+        box-sizing: border-box;
     }
     
     .gallery-item img {
         height: 350px;
+        width: 100%;
+        object-fit: cover;
     }
 
     /* Info content */
