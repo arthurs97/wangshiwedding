@@ -131,6 +131,44 @@
     });
 
     // ============================================
+    // Hotel Block Accordion
+    // ============================================
+    function initHotelAccordion() {
+        const items = document.querySelectorAll('.hotel-accordion-item');
+        items.forEach(item => {
+            const trigger = item.querySelector('.hotel-accordion-trigger');
+            const content = item.querySelector('.hotel-accordion-content');
+            const icon = item.querySelector('.hotel-accordion-icon');
+            if (!trigger || !content) return;
+
+            trigger.addEventListener('click', function() {
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                // Optional: close other hotel items (accordion style)
+                items.forEach(other => {
+                    if (other === item) return;
+                    const t = other.querySelector('.hotel-accordion-trigger');
+                    const c = other.querySelector('.hotel-accordion-content');
+                    const i = other.querySelector('.hotel-accordion-icon');
+                    if (t && c) {
+                        t.setAttribute('aria-expanded', 'false');
+                        c.style.maxHeight = null;
+                        if (i) i.textContent = '+';
+                    }
+                });
+                if (isExpanded) {
+                    this.setAttribute('aria-expanded', 'false');
+                    content.style.maxHeight = null;
+                    if (icon) icon.textContent = '+';
+                } else {
+                    this.setAttribute('aria-expanded', 'true');
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                    if (icon) icon.textContent = '−';
+                }
+            });
+        });
+    }
+
+    // ============================================
     // FAQ Accordion Functionality
     // ============================================
     function initFAQ() {
@@ -176,14 +214,16 @@
         });
     }
 
-    // Initialize hamburger menu and FAQ when DOM is ready
+    // Initialize hamburger menu, hotel accordion, and FAQ when DOM is ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
             initHamburgerMenu();
+            initHotelAccordion();
             initFAQ();
         });
     } else {
         initHamburgerMenu();
+        initHotelAccordion();
         initFAQ();
     }
 
