@@ -501,6 +501,37 @@ p {
     text-align: left;
 }
 
+/* Schedule */
+.wedding-schedule {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 400px;
+}
+
+.wedding-schedule li {
+    display: flex;
+    gap: 1.25rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid rgba(139, 115, 85, 0.1);
+    font-family: var(--font-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--color-text);
+}
+
+.wedding-schedule li:last-child {
+    border-bottom: none;
+}
+
+.schedule-time {
+    flex-shrink: 0;
+    width: 4.5rem;
+    font-weight: 500;
+    color: var(--color-accent);
+    text-align: right;
+}
+
 /* Hotel block */
 .hotel-block-intro {
     text-align: center;
