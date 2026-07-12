@@ -460,6 +460,47 @@ p {
     outline: none;
 }
 
+.welcome-rsvp-cta {
+    margin-top: 2rem;
+}
+
+.welcome-rsvp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 2.5rem;
+    background-color: var(--color-accent);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-family: var(--font-secondary);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    min-height: 44px;
+}
+
+.welcome-rsvp-btn:hover,
+.welcome-rsvp-btn:focus {
+    background-color: var(--color-text);
+    transform: translateY(-2px);
+    outline: none;
+}
+
+.welcome-rsvp-btn:active {
+    transform: translateY(0);
+}
+
+.welcome-rsvp-deadline {
+    margin-top: 0.75rem;
+    margin-bottom: 0;
+    font-size: 0.9rem;
+    color: var(--color-text);
+    opacity: 0.85;
+}
+
 /* ============================================
    INFORMATION SECTION
    ============================================ */
