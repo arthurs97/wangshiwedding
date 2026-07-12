@@ -501,35 +501,106 @@ p {
     text-align: left;
 }
 
-/* Schedule */
-.wedding-schedule {
-    list-style: none;
-    padding: 0;
-    margin: 0 auto;
-    max-width: 400px;
+/* Event details */
+.event-details-section {
+    padding: 2.5rem 2rem;
 }
 
-.wedding-schedule li {
-    display: flex;
-    gap: 1.25rem;
-    padding: 0.65rem 0;
-    border-bottom: 1px solid rgba(139, 115, 85, 0.1);
+.event-details {
+    max-width: 480px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.event-date {
+    font-family: var(--font-primary);
+    font-size: clamp(1.1rem, 3vw, 1.35rem);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 1.25rem;
+}
+
+.event-ornament {
+    width: 2.5rem;
+    height: 1px;
+    background: rgba(90, 122, 90, 0.35);
+    margin: 0 auto 1.25rem;
+    position: relative;
+}
+
+.event-ornament::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 6px;
+    height: 6px;
+    border: 1px solid rgba(90, 122, 90, 0.4);
+    background: var(--color-background);
+}
+
+.event-title {
+    font-family: var(--font-primary);
+    font-size: clamp(1.25rem, 3.5vw, 1.5rem);
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 0.75rem;
+    text-align: center;
+}
+
+.event-time {
+    font-family: var(--font-secondary);
+    font-size: 1rem;
+    color: var(--color-text);
+    margin-bottom: 1.5rem;
+}
+
+.event-venue {
+    font-family: var(--font-primary);
+    font-size: 1.15rem;
+    margin-bottom: 0.35rem;
+}
+
+.event-venue a {
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+.event-address {
     font-family: var(--font-secondary);
     font-size: 0.95rem;
-    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+.event-address a {
     color: var(--color-text);
+    text-decoration: underline;
+    text-underline-offset: 2px;
 }
 
-.wedding-schedule li:last-child {
-    border-bottom: none;
-}
-
-.schedule-time {
-    flex-shrink: 0;
-    width: 4.5rem;
-    font-weight: 500;
+.event-address a:hover,
+.event-venue a:hover {
     color: var(--color-accent);
-    text-align: right;
+}
+
+.event-note {
+    font-family: var(--font-secondary);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+    max-width: 42ch;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.event-note:last-of-type {
+    margin-bottom: 0;
 }
 
 /* Hotel block */
