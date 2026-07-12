@@ -609,5 +609,42 @@
     } else {
         initStickyNav();
     }
+
+    // ============================================
+    // Registry Face-off Selection
+    // ============================================
+    function initRegistryFaceoff() {
+        const grid = document.getElementById('faceoffGrid');
+        if (!grid) return;
+
+        const cards = grid.querySelectorAll('.cat-card');
+        const feedback = document.getElementById('registryPickFeedback');
+        const message = document.getElementById('registryPickMessage');
+
+        cards.forEach(function(card) {
+            card.addEventListener('click', function() {
+                const cat = card.getAttribute('data-cat');
+                const catName = cat.charAt(0).toUpperCase() + cat.slice(1);
+
+                cards.forEach(function(c) {
+                    c.classList.remove('selected');
+                    c.setAttribute('aria-pressed', 'false');
+                });
+                card.classList.add('selected');
+                card.setAttribute('aria-pressed', 'true');
+
+                if (feedback && message) {
+                    message.textContent = 'Team ' + catName + '!';
+                    feedback.hidden = false;
+                }
+            });
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initRegistryFaceoff);
+    } else {
+        initRegistryFaceoff();
+    }
 })();
 
