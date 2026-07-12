@@ -91,10 +91,9 @@
             <div class="nav-menu" id="navMenu">
                 <a href="#welcome" class="nav-link">Welcome</a>
                 <a href="#information" class="nav-link">Information</a>
-                <a href="#recommendations" class="nav-link">Recommendations</a>
                 <a href="#our-story" class="nav-link">Our Story</a>
-                <a href="#gallery" class="nav-link">Gallery</a>
                 <a href="#registry" class="nav-link">Registry</a>
+                <a href="#gallery" class="nav-link">Gallery</a>
             </div>
         </div>
     </nav>
@@ -214,93 +213,6 @@
                     <p>Please reach out to us at <a href="mailto:wangshi.wedding@gmail.com">wangshi.wedding@gmail.com</a> if you have any other questions!</p>
                 </div>
             </div>
-
-            <!-- Things to Do / Local Recommendations Subsection -->
-            <div class="info-subsection recommendations-section" id="recommendations">
-                <h3>Things to Do & Local Recommendations</h3>
-                <div class="info-content">
-                    <div class="map-container">
-                        <iframe
-                            src="https://www.google.com/maps/d/embed?mid=1Mog_OweCJGnv4sm17junpvoZ-grTSeY"
-                            width="100%"
-                            height="480"
-                            style="border:0;"
-                            loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
-                    </div>
-                    
-                    <!-- Recommendations by Category -->
-                    <div class="recommendations-list">
-                        <!-- Food Category -->
-                        <div class="recommendation-category">
-                            <h4 class="category-title">Food</h4>
-                            <ul class="recommendation-items">
-                                <li>
-                                    <strong>Hookfish</strong> for excellent fresh fish. Arthur's order: fish and chips. Helen's order: tuna burger. To share: poke nachos and an agua fresca
-                                </li>
-                                <li>
-                                    <strong>Arsicault</strong> across the street from our apartment! We love their buttery croissant and kouign amann.
-                                </li>
-                                <li>
-                                    <strong>Yuanbao Jiaozi</strong> for the best chinese comfort food. Chicken & corn dumplings and beef noodle soup are our favorites here.
-                                </li>
-                                <li>
-                                    <strong>The Laundromat</strong> for the fluffiest egg everything bagels in the morning & delicious pizza in the evening.
-                                </li>
-                                <li>
-                                    <strong>Pho 2000</strong> for the brave and hungover – delicious pho and banh xeo in a slightly rough area
-                                </li>
-                                <li>
-                                    <strong>Molinari</strong> for the cutest North Beach stroll & really yummy Italian deli sandwiches
-                                </li>
-                                <li>
-                                    <strong>Stella Pastry</strong> for tiramisu, cannoli, espresso. Take it to Washington Square up the street.
-                                </li>
-                                <li>
-                                    <strong>Marco Polo</strong> pandan ice cream 🙂
-                                </li>
-                            </ul>
-                        </div>
-                        
-                        <!-- Coffee Category -->
-                        <div class="recommendation-category">
-                            <h4 class="category-title">Coffee</h4>
-                            <ul class="recommendation-items">
-                                <li>
-                                    <strong>The Depot Cafe and Bookstore</strong>, a cute cafe near the venue.
-                                </li>
-                                <li>
-                                    <strong>Equator Coffees</strong>, has nice matcha too.
-                                </li>
-                                <li>
-                                    <strong>Breck's</strong>, cozy neighborhood cafe that also serves wine.
-                                </li>
-                            </ul>
-                        </div>
-                        
-                        <!-- Parks Category -->
-                        <div class="recommendation-category">
-                            <h4 class="category-title">Parks</h4>
-                            <p class="category-subtitle">To walk off the food:</p>
-                            <ul class="recommendation-items">
-                                <li>
-                                    <strong>Blue Heron Lake</strong> for some excellent birdwatching
-                                </li>
-                                <li>
-                                    <strong>Hike in the Presidio</strong>
-                                </li>
-                                <li>
-                                    <strong>Hike at Mt. Tam</strong>
-                                </li>
-                                <li>
-                                    <strong>Take the ferry to Angel Island</strong> to learn some cool history
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </section>
 
         <!-- Section Divider -->
@@ -315,50 +227,6 @@
                 <p>We were supposed to go on our first date in New York. Helen was doing her internship and Arthur was in town visiting friends. However, when Helen found out her friend Jo was flying in for the weekend, she flaked on him (gasp!).</p>
                 
                 <p>Arthur told Helen that after the summer we could hang out in the Bay Area, but was pretty sure it would never happen. She did actually reach out again, and it has been happily ever after since then :)</p>
-            </div>
-
-            <!-- Photo Gallery -->
-            <div class="gallery-container" id="gallery">
-                <h3>Photo Gallery</h3>
-                
-                <!-- Gallery Preview (scrollable on mobile, click to open full gallery) -->
-                <div class="gallery-preview" id="galleryPreview">
-                    <div class="gallery-scroll" id="galleryScroll">
-                        <!-- Gallery images - add your photos here -->
-                        <!-- Place images in assets/images/gallery/ directory -->
-                        <!-- Example structure (copy and modify for each photo):
-                        <div class="gallery-item" data-index="0">
-                            <img src="assets/images/gallery/photo1.jpg" alt="Description of photo" loading="lazy">
-                        </div>
-                        <div class="gallery-item" data-index="1">
-                            <img src="assets/images/gallery/photo2.jpg" alt="Description of photo" loading="lazy">
-                        </div>
-                        -->
-                        <div class="gallery-placeholder" id="galleryPlaceholder">
-                            <p>Loading gallery...</p>
-                        </div>
-                    </div>
-                    <button class="gallery-open-btn" id="galleryOpenBtn" style="display: none;">View Full Gallery</button>
-                </div>
-
-                <!-- Full Gallery Modal (hidden by default) -->
-                <div class="gallery-modal" id="galleryModal">
-                    <div class="gallery-modal-content">
-                        <button class="gallery-close" id="galleryClose">&times;</button>
-                        <button class="gallery-nav gallery-prev" id="galleryPrev">&#8249;</button>
-                        <button class="gallery-nav gallery-next" id="galleryNext">&#8250;</button>
-                        <div class="gallery-modal-image-container">
-                            <img id="galleryModalImage" src="" alt="Gallery image">
-                        </div>
-                        <div class="gallery-metadata" id="galleryMetadata">
-                            <div class="gallery-metadata-date" id="galleryDate"></div>
-                            <div class="gallery-metadata-location" id="galleryLocation"></div>
-                        </div>
-                        <div class="gallery-counter">
-                            <span id="galleryCurrent">1</span> / <span id="galleryTotal">0</span>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
 
@@ -398,6 +266,130 @@
                 <div class="registry-venmo-cta">
                     <a href="https://venmo.com/u/Arthur-Shi" class="registry-venmo-btn" target="_blank" rel="noopener noreferrer">Send a gift via Venmo</a>
                     <p class="registry-venmo-handle">@arthur-shi</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Divider -->
+        <div class="section-divider"></div>
+
+        <!-- Section 5: Gallery -->
+        <section id="gallery" class="content-section gallery-section">
+            <h2>Photo Gallery</h2>
+
+            <div class="gallery-container">
+                <!-- Gallery Preview (scrollable on mobile, click to open full gallery) -->
+                <div class="gallery-preview" id="galleryPreview">
+                    <div class="gallery-scroll" id="galleryScroll">
+                        <div class="gallery-placeholder" id="galleryPlaceholder">
+                            <p>Loading gallery...</p>
+                        </div>
+                    </div>
+                    <button class="gallery-open-btn" id="galleryOpenBtn" style="display: none;">View Full Gallery</button>
+                </div>
+
+                <!-- Full Gallery Modal (hidden by default) -->
+                <div class="gallery-modal" id="galleryModal">
+                    <div class="gallery-modal-content">
+                        <button class="gallery-close" id="galleryClose">&times;</button>
+                        <button class="gallery-nav gallery-prev" id="galleryPrev">&#8249;</button>
+                        <button class="gallery-nav gallery-next" id="galleryNext">&#8250;</button>
+                        <div class="gallery-modal-image-container">
+                            <img id="galleryModalImage" src="" alt="Gallery image">
+                        </div>
+                        <div class="gallery-metadata" id="galleryMetadata">
+                            <div class="gallery-metadata-date" id="galleryDate"></div>
+                            <div class="gallery-metadata-location" id="galleryLocation"></div>
+                        </div>
+                        <div class="gallery-counter">
+                            <span id="galleryCurrent">1</span> / <span id="galleryTotal">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Recommendations (hidden for now) -->
+        <section id="recommendations" class="content-section recommendations-page-section section-hidden" aria-hidden="true">
+            <h2>Things to Do & Local Recommendations</h2>
+            <div class="info-subsection recommendations-section">
+                <div class="info-content">
+                    <div class="map-container">
+                        <iframe
+                            src="https://www.google.com/maps/d/embed?mid=1Mog_OweCJGnv4sm17junpvoZ-grTSeY"
+                            width="100%"
+                            height="480"
+                            style="border:0;"
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                    
+                    <div class="recommendations-list">
+                        <div class="recommendation-category">
+                            <h4 class="category-title">Food</h4>
+                            <ul class="recommendation-items">
+                                <li>
+                                    <strong>Hookfish</strong> for excellent fresh fish. Arthur's order: fish and chips. Helen's order: tuna burger. To share: poke nachos and an agua fresca
+                                </li>
+                                <li>
+                                    <strong>Arsicault</strong> across the street from our apartment! We love their buttery croissant and kouign amann.
+                                </li>
+                                <li>
+                                    <strong>Yuanbao Jiaozi</strong> for the best chinese comfort food. Chicken & corn dumplings and beef noodle soup are our favorites here.
+                                </li>
+                                <li>
+                                    <strong>The Laundromat</strong> for the fluffiest egg everything bagels in the morning & delicious pizza in the evening.
+                                </li>
+                                <li>
+                                    <strong>Pho 2000</strong> for the brave and hungover – delicious pho and banh xeo in a slightly rough area
+                                </li>
+                                <li>
+                                    <strong>Molinari</strong> for the cutest North Beach stroll & really yummy Italian deli sandwiches
+                                </li>
+                                <li>
+                                    <strong>Stella Pastry</strong> for tiramisu, cannoli, espresso. Take it to Washington Square up the street.
+                                </li>
+                                <li>
+                                    <strong>Marco Polo</strong> pandan ice cream 🙂
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="recommendation-category">
+                            <h4 class="category-title">Coffee</h4>
+                            <ul class="recommendation-items">
+                                <li>
+                                    <strong>The Depot Cafe and Bookstore</strong>, a cute cafe near the venue.
+                                </li>
+                                <li>
+                                    <strong>Equator Coffees</strong>, has nice matcha too.
+                                </li>
+                                <li>
+                                    <strong>Breck's</strong>, cozy neighborhood cafe that also serves wine.
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="recommendation-category">
+                            <h4 class="category-title">Parks</h4>
+                            <p class="category-subtitle">To walk off the food:</p>
+                            <ul class="recommendation-items">
+                                <li>
+                                    <strong>Blue Heron Lake</strong> for some excellent birdwatching
+                                </li>
+                                <li>
+                                    <strong>Hike in the Presidio</strong>
+                                </li>
+                                <li>
+                                    <strong>Hike at Mt. Tam</strong>
+                                </li>
+                                <li>
+                                    <strong>Take the ferry to Angel Island</strong> to learn some cool history
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

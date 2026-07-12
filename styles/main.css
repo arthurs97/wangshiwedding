@@ -830,12 +830,24 @@ p {
     line-height: 1.8;
 }
 
+.gallery-section {
+    padding-top: 3rem;
+}
+
+.section-hidden {
+    display: none !important;
+}
+
 /* ============================================
    GALLERY STYLES
    ============================================ */
 
 .gallery-container {
-    margin-top: 2rem;
+    margin-top: 0;
+}
+
+.gallery-section h2 {
+    margin-bottom: 2rem;
 }
 
 .gallery-container h3 {
